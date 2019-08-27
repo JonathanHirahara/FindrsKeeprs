@@ -1,4 +1,7 @@
 import Axios from 'axios'
+
+//NOTE DONT TOUCH ME
+
 let baseUrl = location.host.includes('localhost') ? '//localhost:5000/' : '/'
 
 let auth = Axios.create({
@@ -32,7 +35,7 @@ export default class AuthService {
       throw new Error('[logout failed] :' + e.response.data)
     }
   }
-  static async Authenticate() { 
+  static async Authenticate() {
     try {
       let res = await auth.get('authenticate')
       return res.data

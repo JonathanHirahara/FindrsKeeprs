@@ -15,10 +15,13 @@
             <p v-if="loginForm">No account Click to Register</p>
             <p v-else>Already have an account click to Login</p>
         </div>
+        <keeps></keeps>
     </div>
 </template>
 
 <script>
+    import router from '../router'
+    import keeps from '@/Components/KeepsComponent.vue'
     export default {
         name: "login",
         data() {
@@ -35,9 +38,12 @@
                 }
             };
         },
-        beforeCreate(){
-            if(this.$store.state.user.id){
-                this.$router.push({name: "home"})
+        mounted() {
+            this.$store.dispatch('getAllKeeps')
+        },
+        beforeCreate() {
+            if (this.$store.state.user.id) {
+                this.$router.push({ name: "home" })
             }
         },
         methods: {
@@ -47,6 +53,9 @@
             loginUser() {
                 this.$store.dispatch("login", this.creds);
             }
+        },
+        components: {
+            keeps
         }
     };
 </script>
