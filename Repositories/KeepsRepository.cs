@@ -23,9 +23,9 @@ namespace FindrsKeeprs.Repositories
       return keep;
 
     }
-    public IEnumerable<Keep> GetKeeps()
+    public IEnumerable<Keep> GetAllKeeps()
     {
-      return _db.Query<Keep>("SELECT * FROM keeps;");
+      return _db.Query<Keep>("SELECT * FROM keeps");
     }
 
     public ActionResult<Keep> GetKeepsByUserId(int userId)
@@ -38,6 +38,17 @@ namespace FindrsKeeprs.Repositories
       {
 
         throw new Exception("Keeps not found");
+      }
+    }
+    public Keep GetKeepById(int Id)
+    {
+      try
+      {
+        return _db.QueryFirstOrDefault<Keep>("SELECT * FROM keeps WHERE id=@Id", new { Id });
+      }
+      catch (Exception e)
+      {
+        throw new Exception("Keep not found");
       }
     }
   }

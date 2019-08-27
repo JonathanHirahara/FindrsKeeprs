@@ -67,13 +67,30 @@ export default new Vuex.Store({
     },
     //#endregion
 
-    //#region Findrs stuff
+    //#region Keeps stuff
     async getAllKeeps({ dispatch, commit }) {
       try {
-        let res = await api.get('/keeps')
-        commit('setKeeps', res.data.keeps)
+        // debugger
+        let res = await api.get('keeps')
+        commit('setKeeps', res.data)
+      }
+      catch (error) { console.log(error) }
+    },
+
+    async createKeeps({ dispatch, commit }, payload) {
+      try {
+        let res = await api.post('/keeps', payload)
+        dispatch('getAllkeeps')
+      }
+      catch (error) { console.log(error) }
+    },
+    async getVaultsByUserId({ dispatch, commit }, payload) {
+      try {
+        let res = await api.get('/vaults/' + payload)
+        commit('setVaults', res.data)
       }
       catch (error) { console.log(error) }
     }
+
   }
 })
