@@ -7,7 +7,11 @@ import Login from './views/Login.vue'
 // @ts-ignore
 import keeps from './Components/KeepsComponent.vue'
 // @ts-ignore
-import vaults from './views/Vaults.vue'
+import vaults from './Components/Vaults.vue'
+// @ts-ignore
+import createKeep from './Components/CreateKeepComponent.vue'
+// @ts-ignore
+import createVault from './Components/CreateVaultComponent.vue'
 
 Vue.use(Router)
 
@@ -32,6 +36,16 @@ export default new Router({
       path: '/vaults',
       name: 'vaults',
       component: vaults
+    },
+    {
+      path: '/createfindr',
+      name: 'createKeep',
+      component: createKeep
+    },
+    {
+      path: '/createKeepr',
+      name: 'createVault',
+      component: createVault
     },
     {
       path: "*",

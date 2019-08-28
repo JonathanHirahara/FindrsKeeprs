@@ -26,15 +26,20 @@ namespace FindrsKeeprs.Repositories
 
     }
 
-    public bool DeleteVaultById(int vaultId)
+    public bool DeleteVaultById(int id)
     {
-      int success = _db.Execute("DELETE FROM vaults WHERE id = @VaultId", new { vaultId });
+      int success = _db.Execute("DELETE FROM vaults WHERE id = @Id", new { id });
       return success > 0;
     }
 
     public IEnumerable<Vault> GetVaultsByUserId(string userId)
     {
-      return _db.Query<Vault>("SELECT * FROM Vaults WHERE userId= @userId", new { userId });
+      return _db.Query<Vault>("SELECT * FROM vaults WHERE userId= @UserId", new { userId });
+    }
+
+    public IEnumerable<Vault> GetVaultsById(int id)
+    {
+      return _db.Query<Vault>("SELECT * FROM vaults WHERE id= @Id", new { id });
     }
   }
 }

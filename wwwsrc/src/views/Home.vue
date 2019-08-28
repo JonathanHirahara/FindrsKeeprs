@@ -8,7 +8,7 @@
         <h1>Welcome To FindrsKeeprs </h1>
       </div>
       <div class="col-3">
-        <button class="btn btn-info">CREATE Findr</button>
+        <button @click="createFindr" class="btn btn-info">CREATE Findr</button>
       </div>
     </div>
     <div class="row justify-content-center">
@@ -26,7 +26,8 @@
 <script>
   import router from '../router'
   import keeps from '@/Components/KeepsComponent.vue'
-  import vaults from '../views/Vaults.vue'
+  import vaults from '../Components/Vaults.vue'
+  import createKeep from '../Components/CreateKeepComponent.vue'
   export default {
     name: "home",
     computed: {
@@ -39,11 +40,15 @@
     },
     methods: {
       logout() {
-        this.$store.dispatch("logout");
+        this.$store.dispatch("logout")
       },
       home() {
         router.push({ name: 'vaults' })
+      },
+      createFindr() {
+        router.push({ name: 'createKeep' })
       }
+
     },
     components: {
       keeps

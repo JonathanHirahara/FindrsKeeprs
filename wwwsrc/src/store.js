@@ -84,9 +84,13 @@ export default new Vuex.Store({
       }
       catch (error) { console.log(error) }
     },
-    async getVaultsByUserId({ dispatch, commit }, payload) {
+    //#endregion
+
+    //#region Vaults stuff
+    async getVaultsByUserId({ dispatch, commit }, user) {
       try {
-        let res = await api.get('/vaults/' + payload)
+        debugger
+        let res = await api.get('/vaults/', user)
         commit('setVaults', res.data)
       }
       catch (error) { console.log(error) }

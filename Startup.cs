@@ -61,6 +61,7 @@ namespace FindrsKeeprs
       services.AddTransient<UserRepository>();
       services.AddTransient<KeepsRepository>();
       services.AddTransient<VaultsRepository>();
+      services.AddTransient<VaultKeepsRepository>();
       //TODO  lots todo here
 
     }

@@ -5,7 +5,7 @@
         <button class="btn btn-warning">NEW KEEPR</button>
       </div>
       <div class="col-6">
-        <h1>Hello {{user.name}}</h1>
+        <h1>Hello {{user.username}} </h1>
       </div>
       <div class="col-3">
         <button class="btn btn-warning" @click="main">MAIN</button>

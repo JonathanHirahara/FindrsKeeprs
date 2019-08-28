@@ -7,7 +7,6 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace FindrsKeeprs.Controllers
 {
-  [Authorize]
   [Route("api/[controller]")]
   [ApiController]
 
@@ -34,8 +33,8 @@ namespace FindrsKeeprs.Controllers
       }
     }
 
-    [HttpGet("{id}")]
-    public ActionResult<Vault> Get()
+    [HttpGet]
+    public ActionResult<Vault> Get(string UserId)
     {
       try
       {
@@ -47,13 +46,24 @@ namespace FindrsKeeprs.Controllers
         return BadRequest(e.Message);
       }
     }
-
-    [HttpDelete("{vaultId}")]
-    public ActionResult<Vault> Delete(int vaultId)
+    [HttpDelete("{id}")]
+    public ActionResult<Vault> Delete(int id)
     {
       try
       {
-        return Ok(_repo.DeleteVaultById(vaultId));
+        return Ok(_repo.DeleteVaultById(id));
+      }
+      catch (Exception e)
+      {
+        return BadRequest(e.Message);
+      }
+    }
+    [HttpGet("{id}")]
+    public ActionResult<Vault> Get(int id)
+    {
+      try
+      {
+        return Ok(_repo.GetVaultsById(id));
       }
       catch (Exception e)
       {
