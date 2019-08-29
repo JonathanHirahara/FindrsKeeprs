@@ -1,48 +1,48 @@
 <template>
   <div class="createKeep">
-    <div class="row d-flex justify-content-center ">
-      <div class="col-3">
-        <div class="form-group">
-          <div class="card">
-            <div class="card-body">
-              <form @submit="createKeep">
-                <h2 class="card-title"><b>Create-A-Findr</b></h2>
-                <label class="col-form-label col-form-label-lg" for="inputLarge">Findr Title</label>
-                <input class="form-control form-control-lg" type="text" placeholder="Title" id="inputLarge">
-                <div>
-                  <label class="col-form-label col-form-label-lg" for="inputLarge"></label>
-                  <input class="form-control form-control-lg" type="text" placeholder="imageUrl Here" id="inputLarge">
-                </div>
-                <div>
-                  <label class="col-form-label col-form-label-lg" for="inputLarge">Large input</label>
-                  <input class="form-control form-control-lg" type="text" placeholder="Description" id="inputLarge">
-                </div>
-                <div>
-                  <button>Create Findr</button>
-                </div>
-              </form>
-            </div>
+    <div class="row d-flex justify-content-center">
+      <div class="col-4">
+        <form @submit="createNewKeep">
+          <label class="col-form-label col-form-label-lg" for="keep">Findr Creator</label>
+          <input class="form-control form-control-lg" type="text" placeholder="Title" id="keep" v-model="newKeep.Name">
+          <label class="col-form-label col-form-label-lg" for="keep"></label>
+          <input class="form-control form-control-lg" type="text" placeholder="imageUrl Here" id="keep"
+            v-model="newKeep.Img">
+          <label class="col-form-label col-form-label-lg" for="keep"></label>
+          <input class="form-control form-control-lg" type="text" placeholder="Description" id="keep"
+            v-model="newKeep.Description">
+          <div class="form-check">
+            <input type="checkbox" v-model="newKeep.isprivate">
+            <label>Private Findr?</label>
           </div>
-        </div>
+          <button type="submit">Create Findr</button>
+        </form>
       </div>
     </div>
   </div>
+
 </template>
 
-
+<!-- NOTE Create Keep Form -->
 <script>
   import router from '../router'
   export default {
     name: 'createKeep',
     data() {
       return {
+        newKeep: {
+          Name: "",
+          Img: "",
+          Description: "",
 
+        }
       }
     },
     computed: {},
     methods: {
-      createKeep(e) {
-        this.$store.dispatch('createKeep')
+      createNewKeep(e) {
+        // debugger
+        this.$store.dispatch('createKeep', this.newKeep)
         router.push({ name: 'home' })
       }
     },
@@ -55,6 +55,7 @@
   .createKeep {
     background-color: black;
     height: 100vh;
+    color: rgb(255, 136, 0);
   }
 
   .pos {

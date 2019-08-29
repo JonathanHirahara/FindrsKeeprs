@@ -1,14 +1,14 @@
 <template>
-  <div class=" home">
+  <div class="home">
     <div class="row">
       <div class="col-3">
-        <button class="btn btn-info" @click="home">MyKeeprs</button>
+        <button class="btn btn-info" v-if="user.id" @click="home">MyKeeprs</button>
       </div>
       <div class="col-6">
         <h1>Welcome To FindrsKeeprs </h1>
       </div>
       <div class="col-3">
-        <button @click="createFindr" class="btn btn-info">CREATE Findr</button>
+        <button @click="createFindr" class="btn btn-info" v-if="user.id">CREATE Findr</button>
       </div>
     </div>
     <div class="row justify-content-center">
@@ -25,7 +25,7 @@
 
 <script>
   import router from '../router'
-  import keeps from '@/Components/KeepsComponent.vue'
+  import keeps from '@/Components/Keeps.vue'
   import vaults from '../Components/Vaults.vue'
   import createKeep from '../Components/CreateKeepComponent.vue'
   export default {
@@ -62,5 +62,6 @@
 
   .home {
     background-color: black;
+    height: 100vh;
   }
 </style>

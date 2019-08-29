@@ -20,7 +20,7 @@ namespace FindrsKeeprs.Controllers
     {
       _repo = repo;
     }
-    [Authorize]
+    // [Authorize]
     [HttpPost]
     public ActionResult<Keep> Post([FromBody]Keep keep)
     {
@@ -36,11 +36,12 @@ namespace FindrsKeeprs.Controllers
     }
 
     [HttpGet]
-    public ActionResult<IEnumerable<Keep>> Get()
+    public ActionResult<IEnumerable<Keep>> GetPublicKeeps()
     {
       try
       {
-        return Ok(_repo.GetAllKeeps());
+        int isprivate = 0;
+        return Ok(_repo.GetAllPublicKeeps(isprivate));
       }
       catch (Exception e)
       {
@@ -63,11 +64,12 @@ namespace FindrsKeeprs.Controllers
     }
 
     [HttpGet("{Id}")]
-    public ActionResult<Keep> Get(int Id)
+    public ActionResult<Keep> GetKeepsByUserId(string user)
     {
       try
       {
-        return Ok(_repo.GetKeepByKeepId(Id));
+        string userId = HttpContext.User.FindFirstValue("Id");
+        return Ok(_repo.GetKeepByUserId(userId));
       }
       catch (Exception e)
       {

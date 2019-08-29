@@ -1,49 +1,54 @@
 <template>
   <div class="createVault">
-    <div class="row d-flex justify-content-center ">
-      <div class="col-3">
-        <div class="form-group">
-          <div class="card">
-            <div class="card-body">
-              <form @submit="createKeep">
-                <h2 class="card-title"><b>Create-A-Findr</b></h2>
-                <label class="col-form-label col-form-label-lg" for="inputLarge">Findr Title</label>
-                <input class="form-control form-control-lg" type="text" placeholder="Title" id="inputLarge">
-                <div>
-                  <label class="col-form-label col-form-label-lg" for="inputLarge"></label>
-                  <input class="form-control form-control-lg" type="text" placeholder="imageUrl Here" id="inputLarge">
-                </div>
-                <div>
-                  <label class="col-form-label col-form-label-lg" for="inputLarge">Large input</label>
-                  <input class="form-control form-control-lg" type="text" placeholder="Description" id="inputLarge">
-                </div>
-                <div>
-                  <button>Create Findr</button>
-                </div>
-              </form>
-            </div>
-          </div>
-        </div>
+    <div class="row d-flex justify-content-center">
+      <div class="col-4">
+        <form @submit="createNewVault">
+          <label class="col-form-label col-form-label-lg" for="vault">Keepr Creator</label>
+          <input class="form-control form-control-lg" type="text" placeholder="Title" id="vault"
+            v-model="newVault.Name">
+          <label class="col-form-label col-form-label-lg" for="vault"></label>
+          <input class="form-control form-control-lg" type="text" placeholder="Description" id="vault"
+            v-model="newVault.Description">
+          <button type="submit">Create Keepr</button>
+        </form>
       </div>
     </div>
-
   </div>
 </template>
-
+<!-- NOTE CREATE VAULT FORM -->
 
 <script>
+  import router from '../router'
   export default {
     name: 'createVault',
     data() {
-      return {}
+      return {
+        newVault: {
+          name: "",
+          description: ""
+        }
+      }
     },
     computed: {},
-    methods: {},
+    methods: {
+      createNewVault(e) {
+        this.$store.dispatch('createNewVault', this.newVault)
+        router.push({ name: 'vaults' })
+      }
+    },
     components: {}
   }
 </script>
 
 
 <style scoped>
+  .createVault {
+    background-color: black;
+    height: 100vh;
+    color: rgb(255, 102, 0);
+  }
 
+  button {
+    background-color: rgb(255, 102, 0);
+  }
 </style>

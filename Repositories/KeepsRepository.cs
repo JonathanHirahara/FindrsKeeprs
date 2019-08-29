@@ -16,16 +16,16 @@ namespace FindrsKeeprs.Repositories
     }
     public Keep CreateKeep(Keep keep)
     {
-      int id = _db.ExecuteScalar<int>(@"INSERT INTO keeps (name, description, userId)
-      VALUES (@Name, @Description,@UserId);
+      int id = _db.ExecuteScalar<int>(@"INSERT INTO keeps (name,img, description, userId, isprivate)
+      VALUES (@Name,@Img, @Description,@UserId,@IsPrivate);
       SELECT LAST_INSERT_ID();", keep);
       keep.Id = id;
       return keep;
 
     }
-    public IEnumerable<Keep> GetAllKeeps()
+    public IEnumerable<Keep> GetAllPublicKeeps(int isprivate)
     {
-      return _db.Query<Keep>("SELECT * FROM keeps");
+      return _db.Query<Keep>("SELECT * FROM keeps WHERE isPrivate=@IsPrivate", new { isprivate });
     }
 
     public ActionResult<Keep> GetKeepsByUserId(string userId)

@@ -18,7 +18,8 @@ export default new Vuex.Store({
   state: {
     user: {},
     vaults: [],
-    keeps: []
+    keeps: [],
+    privateKeeps: []
   },
   mutations: {
     setUser(state, user) {
@@ -33,6 +34,9 @@ export default new Vuex.Store({
     },
     setKeeps(state, data) {
       state.keeps = data
+    },
+    setPrivateKeeps(state, data) {
+      state.privateKeeps = data
     }
   },
   actions: {
@@ -68,33 +72,56 @@ export default new Vuex.Store({
     //#endregion
 
     //#region Keeps stuff
-    async getAllKeeps({ dispatch, commit }) {
+    async getAllPublicKeeps({ dispatch, commit }) {
       try {
-        // debugger
+        debugger
         let res = await api.get('keeps')
         commit('setKeeps', res.data)
       }
       catch (error) { console.log(error) }
     },
-
-    async createKeeps({ dispatch, commit }, payload) {
+    async getAllUserKeeps({ dispatch, commit }, userId) {
       try {
-        let res = await api.post('/keeps', payload)
-        dispatch('getAllkeeps')
+        debugger
+        let res = await api.get('keeps' + userId)
+        commit('setPrivateKeeps', res.data)
+      }
+      catch (error) { console.log(error) }
+    },
+
+    async createKeep({ dispatch, commit }, newKeep) {
+      try {
+        debugger
+        let res = await api.post('/keeps', newKeep)
+        dispatch('getAllPublicKeeps')
       }
       catch (error) { console.log(error) }
     },
     //#endregion
 
     //#region Vaults stuff
-    async getVaultsByUserId({ dispatch, commit }, user) {
+    async getVaultsByUserId({ dispatch, commit }) {
       try {
-        debugger
-        let res = await api.get('/vaults/', user)
+        // debugger
+        let res = await api.get('/vaults/')
         commit('setVaults', res.data)
       }
       catch (error) { console.log(error) }
+    },
+    async createNewVault({ dispatch, commit }, newVault) {
+      try {
+        let res = await api.post('/vaults', newVault)
+        dispatch('getVaultsByUserId')
+      }
+      catch (error) { console.log(error) }
+    },
+    async deleteVault({ dispatch, commit }, payload) {
+      try {
+        await api.delete('vaults/' + payload)
+        dispatch('getVaultsByUserId')
+      }
+      catch (error) { console.log(error) }
     }
-
   }
+
 })

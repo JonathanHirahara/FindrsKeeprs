@@ -32,9 +32,9 @@ namespace FindrsKeeprs.Controllers
         return BadRequest(e.Message);
       }
     }
-
+    [Authorize]
     [HttpGet]
-    public ActionResult<Vault> Get(string UserId)
+    public ActionResult<Vault> Get()
     {
       try
       {
