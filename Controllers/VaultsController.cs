@@ -58,17 +58,17 @@ namespace FindrsKeeprs.Controllers
         return BadRequest(e.Message);
       }
     }
-    [HttpGet("{id}")]
-    public ActionResult<Vault> Get(int id)
-    {
-      try
-      {
-        return Ok(_repo.GetVaultsById(id));
-      }
-      catch (Exception e)
-      {
-        return BadRequest(e.Message);
-      }
-    }
+    // [HttpGet("{id}")]
+    // public ActionResult<Vault> Get(int id)
+    // {
+    //   try
+    //   {
+    //     return Ok(_repo.GetVaultsById(id));
+    //   }
+    //   catch (Exception e)
+    //   {
+    //     return BadRequest(e.Message);
+    //   }
+    // }
   }
 }

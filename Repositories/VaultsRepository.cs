@@ -37,9 +37,9 @@ namespace FindrsKeeprs.Repositories
       return _db.Query<Vault>("SELECT * FROM vaults WHERE userId= @UserId", new { userId });
     }
 
-    public IEnumerable<Vault> GetVaultsById(int id)
-    {
-      return _db.Query<Vault>("SELECT * FROM vaults WHERE id= @Id", new { id });
-    }
+    // public IEnumerable<Vault> GetVaultsById(int id)
+    // {
+    //   return _db.Query<Vault>("SELECT * FROM vaults WHERE id= @Id", new { id });
+    // }
   }
 }

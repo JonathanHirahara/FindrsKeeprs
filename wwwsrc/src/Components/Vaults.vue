@@ -14,6 +14,9 @@
     <div class="row d-flex justify-content-center">
       <vault></vault>
     </div>
+    <div class="row d-flex justify-content-center">
+      <privateKeeps></privateKeeps>
+    </div>
   </div>
 </template>
 <!-- NOTE USER VAULTS PAGE -->
@@ -21,13 +24,15 @@
 <script>
   import router from '../router'
   import vault from '../Components/VaultComponent.vue'
+  import privateKeeps from '../Components/PrivateKeepsComponent.vue'
   export default {
     name: 'vaults',
     data() {
       return {}
     },
     mounted() {
-      this.$store.dispatch('getVaultsByUserId', this.user)
+      // debugger
+      this.$store.dispatch('getPrivateUserKeeps', this.user.id)
     },
     computed: {
       user() {
@@ -43,7 +48,8 @@
       }
     },
     components: {
-      vault
+      vault,
+      privateKeeps
     }
   }
 </script>

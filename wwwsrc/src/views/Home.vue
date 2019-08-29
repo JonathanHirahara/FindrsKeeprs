@@ -8,7 +8,7 @@
         <h1>Welcome To FindrsKeeprs </h1>
       </div>
       <div class="col-3">
-        <button @click="createFindr" class="btn btn-info" v-if="user.id">CREATE Findr</button>
+        <button @click="createFindr" class="btn btn-info" v-if="user.id">CREATE FINDR</button>
       </div>
     </div>
     <div class="row justify-content-center">
@@ -36,7 +36,7 @@
       }
     },
     mounted() {
-      this.$store.dispatch('getAllKeeps')
+      this.$store.dispatch('getAllPublicKeeps')
     },
     methods: {
       logout() {

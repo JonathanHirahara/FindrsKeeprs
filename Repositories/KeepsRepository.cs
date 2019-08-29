@@ -28,11 +28,11 @@ namespace FindrsKeeprs.Repositories
       return _db.Query<Keep>("SELECT * FROM keeps WHERE isPrivate=@IsPrivate", new { isprivate });
     }
 
-    public ActionResult<Keep> GetKeepsByUserId(string userId)
+    public IEnumerable<Keep> GetKeepsByUserId(string userId)
     {
       try
       {
-        return _db.QueryFirst<Keep>("SELECT * FROM keeps WHERE userId = @userId", new { userId });
+        return _db.Query<Keep>("SELECT * FROM keeps WHERE userId = @UserId", new { userId });
       }
       catch (Exception e)
       {
@@ -40,7 +40,7 @@ namespace FindrsKeeprs.Repositories
         throw new Exception("Keeps not found");
       }
     }
-    public Keep GetKeepByKeepId(int Id)
+    public Keep GetKeepById(int Id)
     {
       try
       {
@@ -51,6 +51,12 @@ namespace FindrsKeeprs.Repositories
       {
         throw new Exception("Keep not found");
       }
+    }
+
+    public bool DeleteKeepById(int id)
+    {
+      int success = _db.Execute("DELETE FROM keeps WHERE id=@Id", new { id });
+      return success > 0;
     }
   }
 }

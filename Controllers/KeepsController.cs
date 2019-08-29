@@ -49,27 +49,39 @@ namespace FindrsKeeprs.Controllers
       }
     }
     [Authorize]
-    [HttpGet("user")]
-    public ActionResult<Keep> Get(string user)
+    [HttpGet("{id}")]
+    public ActionResult<Keep> Get(int id)
     {
       try
       {
-        string userId = HttpContext.User.FindFirstValue("Id");
-        return Ok(_repo.GetKeepsByUserId(userId));
+        return Ok(_repo.GetKeepById(id));
       }
       catch (Exception e)
       {
         return BadRequest(e.Message);
       }
     }
-
-    [HttpGet("{Id}")]
-    public ActionResult<Keep> GetKeepsByUserId(string user)
+    // [Authorize]
+    // [HttpGet("{Id}")]
+    // public ActionResult<Keep> GetKeepsByUserId(string user)
+    // {
+    //   try
+    //   {
+    //     string userId = HttpContext.User.FindFirstValue("Id");
+    //     return Ok(_repo.GetKeepsByUserId(userId));
+    //   }
+    //   catch (Exception e)
+    //   {
+    //     return BadRequest(e.Message);
+    //   }
+    // }
+    [Authorize]
+    [HttpDelete("{id}")]
+    public ActionResult<Keep> Delete(int id)
     {
       try
       {
-        string userId = HttpContext.User.FindFirstValue("Id");
-        return Ok(_repo.GetKeepByUserId(userId));
+        return Ok(_repo.DeleteKeepById(id));
       }
       catch (Exception e)
       {

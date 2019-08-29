@@ -8,7 +8,8 @@
           <p class="card-text">{{keep.description}}</p>
         </div>
         <div class="card-body">
-          <button class="btn btn-info">Save Find</button>
+          <button class="btn btn-warning" @click="viewKeep(keep)">View</button>
+          <button class="btn btn-info" @click="">Save</button>
         </div>
       </div>
     </div>
@@ -31,10 +32,10 @@
       }
     },
     methods: {
-      // saveKeep(keep) {
-      //   debugger
-      //   this.$store.dispatch('saveKeep', keep)
-      // }
+      viewKeep(keep) {
+        // debugger
+        this.$router.push({ name: 'activeKeep', params: { keepId: keep.id } })
+      }
     },
     components: {}
   }

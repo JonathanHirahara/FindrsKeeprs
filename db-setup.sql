@@ -46,17 +46,17 @@
 --     INDEX (vaultId, keepId),
 --     INDEX (userId),
 
---     FOREIGN KEY (userId)
---         REFERENCES users(id)
---         ON DELETE CASCADE,
+    -- FOREIGN KEY (userId)
+    --     REFERENCES users(id)
+    --     ON DELETE CASCADE,
 
---     FOREIGN KEY (vaultId)
---         REFERENCES vaults(id)
---         ON DELETE CASCADE,
+    -- FOREIGN KEY (vaultId)
+    --     REFERENCES vaults(id)
+    --     ON DELETE CASCADE,
 
---     FOREIGN KEY (keepId)
---         REFERENCES keeps(id)
---         ON DELETE CASCADE
+    -- FOREIGN KEY (keepId)
+    --     REFERENCES keeps(id)
+        -- ON DELETE CASCADE
 -- )
 
 

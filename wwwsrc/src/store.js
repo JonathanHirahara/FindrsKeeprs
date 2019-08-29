@@ -19,7 +19,8 @@ export default new Vuex.Store({
     user: {},
     vaults: [],
     keeps: [],
-    privateKeeps: []
+    privateKeeps: [],
+    activeKeep: {}
   },
   mutations: {
     setUser(state, user) {
@@ -37,6 +38,9 @@ export default new Vuex.Store({
     },
     setPrivateKeeps(state, data) {
       state.privateKeeps = data
+    },
+    setActiveKeep(state, data) {
+      state.activeKeep = data
     }
   },
   actions: {
@@ -74,16 +78,16 @@ export default new Vuex.Store({
     //#region Keeps stuff
     async getAllPublicKeeps({ dispatch, commit }) {
       try {
-        debugger
+        // debugger
         let res = await api.get('keeps')
         commit('setKeeps', res.data)
       }
       catch (error) { console.log(error) }
     },
-    async getAllUserKeeps({ dispatch, commit }, userId) {
+    async getPrivateUserKeeps({ dispatch, commit }, userId) {
       try {
-        debugger
-        let res = await api.get('keeps' + userId)
+        // debugger
+        let res = await api.get('keeps/' + userId)
         commit('setPrivateKeeps', res.data)
       }
       catch (error) { console.log(error) }
@@ -91,9 +95,32 @@ export default new Vuex.Store({
 
     async createKeep({ dispatch, commit }, newKeep) {
       try {
-        debugger
+        // debugger
         let res = await api.post('/keeps', newKeep)
         dispatch('getAllPublicKeeps')
+      }
+      catch (error) { console.log(error) }
+    },
+    async getKeepById({ dispatch, commit }, payload) {
+      try {
+        // debugger
+        let res = await api.get('keeps/' + payload)
+        commit('setActiveKeep', res.data)
+      }
+      catch (error) { console.log(error) }
+    },
+
+    async deleteKeepById({ dispatch, commit }, payload) {
+      try {
+        await api.delete('keeps/' + payload)
+        dispatch('getPrivateUserKeeps')
+      }
+      catch (error) { console.log(error) }
+    },
+
+    async keepCounter({ dispatch, commit }, payload) {
+      try {
+        let res = await api.post('keeps/' + payload)
       }
       catch (error) { console.log(error) }
     },
