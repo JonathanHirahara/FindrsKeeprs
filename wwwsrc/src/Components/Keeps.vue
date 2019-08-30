@@ -7,9 +7,16 @@
         <div class="card-body">
           <p class="card-text">{{keep.description}}</p>
         </div>
+        <div class="row d-flex justify-content-center">
+          <div>
+            <p>KEEPS:{{keep.keeps}}</p>
+          </div>
+          <div>
+            <p>VIEWS:{{keep.views}}</p>
+          </div>
+        </div>
         <div class="card-body">
-          <button class="btn btn-warning" @click="viewKeep(keep)">View</button>
-          <button class="btn btn-info" @click="">Save</button>
+          <button class="btn btn-warning" @click="viewKeep(keep);incrementViews(keep.id)">View</button>
         </div>
       </div>
     </div>
@@ -23,7 +30,6 @@
     name: 'keeps',
     data() {
       return {
-
       }
     },
     computed: {
@@ -32,9 +38,14 @@
       }
     },
     methods: {
+      incrementViews(id) {
+        this.keep.views++;
+        this.$store.dispatch('keepCounter', keep.views, id)
+      },
       viewKeep(keep) {
         // debugger
-        this.$router.push({ name: 'activeKeep', params: { keepId: keep.id } })
+        this.$router.push({ name: 'activeKeep', params: { activeKeep: keep } })
+
       }
     },
     components: {}
@@ -43,8 +54,5 @@
 
 
 <style scoped>
-  .keeps {
-    background-color: black;
-    height: 100vh;
-  }
+
 </style>

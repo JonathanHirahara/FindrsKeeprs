@@ -84,10 +84,10 @@ export default new Vuex.Store({
       }
       catch (error) { console.log(error) }
     },
-    async getPrivateUserKeeps({ dispatch, commit }, userId) {
+    async getPrivateUserKeeps({ dispatch, commit }) {
       try {
         // debugger
-        let res = await api.get('keeps/' + userId)
+        let res = await api.get('keeps/user/')
         commit('setPrivateKeeps', res.data)
       }
       catch (error) { console.log(error) }
@@ -120,6 +120,7 @@ export default new Vuex.Store({
 
     async keepCounter({ dispatch, commit }, payload) {
       try {
+        // debugger
         let res = await api.post('keeps/' + payload)
       }
       catch (error) { console.log(error) }
@@ -146,6 +147,17 @@ export default new Vuex.Store({
       try {
         await api.delete('vaults/' + payload)
         dispatch('getVaultsByUserId')
+      }
+      catch (error) { console.log(error) }
+    },
+
+    // [HttpPost("{conId}/jobs/{jobId}")]
+    //     public ActionResult<string> AddContractorToJob(string conId, int jobId) {
+    //   return _cr.AddConToJob(conId, jobId)
+    async addKeepToVault({ dispatch, commit }, payload) {
+      try {
+        let res = await api.post('vaultKeeps', payload)
+        dispatch('getVaultKeeps')
       }
       catch (error) { console.log(error) }
     }

@@ -8,7 +8,7 @@
           <p class="card-text">{{activeKeep.description}}</p>
         </div>
         <div class="card-body">
-          <button class="btn btn-info" @click="">Save</button>
+          <button class="btn btn-info" @click="keepKeep(activeKeep)">Save</button>
         </div>
       </div>
     </div>
@@ -35,7 +35,12 @@
         return this.$store.state.activeKeep
       }
     },
-    methods: {},
+    methods: {
+      keepKeep(activeKeep) {
+        debugger
+        this.$store.dispatch('addKeepToVault', activeKeep)
+      }
+    },
     components: {}
   }
 </script>

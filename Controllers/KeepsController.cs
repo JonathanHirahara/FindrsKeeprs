@@ -61,20 +61,20 @@ namespace FindrsKeeprs.Controllers
         return BadRequest(e.Message);
       }
     }
-    // [Authorize]
-    // [HttpGet("{Id}")]
-    // public ActionResult<Keep> GetKeepsByUserId(string user)
-    // {
-    //   try
-    //   {
-    //     string userId = HttpContext.User.FindFirstValue("Id");
-    //     return Ok(_repo.GetKeepsByUserId(userId));
-    //   }
-    //   catch (Exception e)
-    //   {
-    //     return BadRequest(e.Message);
-    //   }
-    // }
+    [Authorize]
+    [HttpGet("user")]
+    public ActionResult<IEnumerable<Keep>> GetKeepsByUserId(string userId)
+    {
+      try
+      {
+        string UserId = HttpContext.User.FindFirstValue("Id");
+        return Ok(_repo.GetKeepsByUserId(UserId));
+      }
+      catch (Exception e)
+      {
+        return BadRequest(e.Message);
+      }
+    }
     [Authorize]
     [HttpDelete("{id}")]
     public ActionResult<Keep> Delete(int id)
@@ -89,11 +89,11 @@ namespace FindrsKeeprs.Controllers
       }
     }
   }
-
-
-
-
-
-
-
 }
+
+
+
+
+
+
+
