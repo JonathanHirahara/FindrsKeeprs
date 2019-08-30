@@ -1,5 +1,6 @@
 using System;
 using System.Collections;
+using System.Collections.Generic;
 using System.Data;
 using Dapper;
 using FindrsKeeprs.Models;
@@ -20,14 +21,23 @@ namespace FindrsKeeprs.Repositories
       return vaultKeep;
     }
 
-    public IEnumerable GetVaultKeeps(int id)
+    public IEnumerable<Keep> GetVaultKeeps(int vaultId, string userId)
     {
-      return _db.Query<VaultKeep>("SELECT * FROM vaultkeeps WHERE id = @Id", new { id });
+      //FIXME pass in the userId again here so I can only get my vaultkeeps
+      //NOTE added userId
+      return _db.Query<Keep>(@"
+      SELECT * FROM vaultkeeps vk
+      INNER JOIN keeps k ON k.id = vk.keepId 
+      WHERE (vaultId = @vaultId AND vk.userId = @userId) ", new { vaultId, userId });
     }
 
     public bool DeleteVaultKeepById(VaultKeep vaultKeep)
     {
-      int success = _db.Execute("DELETE FROM vaultkeeps Where id = @ID,vaultId = @VaultId, keepId = @KeepId, userId = @UserID", new { vaultKeep });
+      int success = _db.Execute(@"
+      DELETE FROM vaultkeeps WHERE 
+      vaultId = @VaultId AND 
+      keepId = @KeepId AND 
+      userId = @UserId", new { vaultKeep });
       return success > 0;
     }
   }

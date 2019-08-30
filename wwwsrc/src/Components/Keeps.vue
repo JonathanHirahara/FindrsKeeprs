@@ -8,15 +8,21 @@
           <p class="card-text">{{keep.description}}</p>
         </div>
         <div class="row d-flex justify-content-center">
-          <div>
+          <div class="col-12">
             <p>KEEPS:{{keep.keeps}}</p>
           </div>
-          <div>
+          <div class="col-12">
             <p>VIEWS:{{keep.views}}</p>
+          </div>
+          <div class="col-12">
+            <p>SHARES:{{keep.shares}}</p>
           </div>
         </div>
         <div class="card-body">
-          <button class="btn btn-warning" @click="viewKeep(keep);incrementViews(keep.id)">View</button>
+          <button class="btn btn-warning" @click="viewKeep(keep)">View</button>
+        </div>
+        <div class="card-body">
+          <button class="btn btn-warning" @click="shareKeep(keep)">SHARE</button>
         </div>
       </div>
     </div>
@@ -37,14 +43,21 @@
         return this.$store.state.keeps
       }
     },
+    mutations: {
+      // viewKeep(keep) {
+      //   this.$store.state.setActiveKeep
+      // }
+    },
     methods: {
-      incrementViews(id) {
-        this.keep.views++;
-        this.$store.dispatch('keepCounter', keep.views, id)
-      },
+      // incrementViews(id) {
+      //   this.keep.views++;
+      //   this.$store.dispatch('keepCounter', keep.views, keep.id)
+      // },
       viewKeep(keep) {
         // debugger
-        this.$router.push({ name: 'activeKeep', params: { activeKeep: keep } })
+        // this.$store.commit('setActiveKeep', keep)
+
+        this.$router.push({ name: 'activeKeep', params: { keepId: keep.id } })
 
       }
     },

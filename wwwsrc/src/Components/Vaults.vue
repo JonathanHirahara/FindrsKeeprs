@@ -31,8 +31,11 @@
       return {}
     },
     mounted() {
-      // debugger
       this.$store.dispatch('getPrivateUserKeeps', this.user.id)
+      //FIXME get user vaults
+      //NOTE vaults on page now
+      this.$store.dispatch('getVaultsByUserId', this.user.id)
+
     },
     computed: {
       user() {

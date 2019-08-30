@@ -20,7 +20,9 @@ export default new Vuex.Store({
     vaults: [],
     keeps: [],
     privateKeeps: [],
-    activeKeep: {}
+    activeKeep: {},
+    activeVault: {},
+    vaultKeepKeeps: []
   },
   mutations: {
     setUser(state, user) {
@@ -29,6 +31,12 @@ export default new Vuex.Store({
     resetState(state) {
       //clear the entire state object of user data
       state.user = {}
+    },
+    setVaultKeepKeeps(state, data) {
+      state.vaultKeepKeeps = data
+    },
+    setActiveVault(state, data) {
+      state.activeVault = data
     },
     setVaults(state, data) {
       state.vaults = data
@@ -118,10 +126,10 @@ export default new Vuex.Store({
       catch (error) { console.log(error) }
     },
 
-    async keepCounter({ dispatch, commit }, payload) {
+    async viewKeep({ dispatch, commit }, keep) {
       try {
         // debugger
-        let res = await api.post('keeps/' + payload)
+        let res = await api.put('keeps/' + keep.id + '/view', keep)
       }
       catch (error) { console.log(error) }
     },
@@ -156,11 +164,37 @@ export default new Vuex.Store({
     //   return _cr.AddConToJob(conId, jobId)
     async addKeepToVault({ dispatch, commit }, payload) {
       try {
+        debugger
         let res = await api.post('vaultKeeps', payload)
-        dispatch('getVaultKeeps')
+        // dispatch('getVaultKeeps')
       }
       catch (error) { console.log(error) }
-    }
+    },
+
+    async removeKeepFromVault({ dispatch, commit }, payload) {
+      try {
+        await api.put('vaultKeeps', payload)
+      }
+      catch (error) { console.log(error) }
+    },
+    async getVaultKeepKeeps({ dispatch, commit }, activeVaultId) {
+      try {
+        // debugger
+        let res = await api.get('vaultKeeps/' + activeVaultId, activeVaultId)
+        commit('setVaultKeepKeeps', res.data)
+      }
+      catch (error) { console.log(error) }
+    },
+    async getVaultById({ dispatch, commit }, payload) {
+      try {
+        // debugger
+        let res = await api.get('/vaults/' + payload)
+        commit('setActiveVault', res.data)
+      }
+      catch (error) { console.log(error) }
+    },
   }
+
+
 
 })

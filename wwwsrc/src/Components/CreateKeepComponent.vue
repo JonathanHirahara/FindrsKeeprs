@@ -40,7 +40,7 @@
     },
     computed: {},
     methods: {
-      createNewKeep(e) {
+      createNewKeep() {
         // debugger
         this.$store.dispatch('createKeep', this.newKeep)
         router.push({ name: 'home' })

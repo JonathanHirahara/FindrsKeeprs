@@ -54,7 +54,8 @@ namespace FindrsKeeprs.Controllers
     {
       try
       {
-        return Ok(_repo.GetKeepById(id));
+        int isprivate = 0;
+        return Ok(_repo.GetKeepById(id, isprivate));
       }
       catch (Exception e)
       {
@@ -81,13 +82,40 @@ namespace FindrsKeeprs.Controllers
     {
       try
       {
-        return Ok(_repo.DeleteKeepById(id));
+        //FIXME PASS IN THE USERID
+        //NOTE added userId to controller
+        string userId = HttpContext.User.FindFirstValue("Id");
+
+        return Ok(_repo.DeleteKeepById(id, userId));
       }
       catch (Exception e)
       {
         return BadRequest(e.Message);
       }
     }
+
+
+    [HttpPut("{id}/share")]
+    public ActionResult<Keep> ViewKeep(int id)
+    {
+      try
+      {
+        //FIXME PASS IN THE USERID
+        //Find the keep
+        //then increase the keep Shares
+        //then save the keep
+        string userId = HttpContext.User.FindFirstValue("Id");
+
+        // _repo.UpdateKeepShares(id)
+        return Ok();
+      }
+      catch (Exception e)
+      {
+        return BadRequest(e.Message);
+      }
+    }
+
+
   }
 }
 

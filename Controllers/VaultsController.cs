@@ -51,24 +51,26 @@ namespace FindrsKeeprs.Controllers
     {
       try
       {
-        return Ok(_repo.DeleteVaultById(id));
+        string userId = HttpContext.User.FindFirstValue("Id");
+
+        return Ok(_repo.DeleteVaultById(id, userId));
       }
       catch (Exception e)
       {
         return BadRequest(e.Message);
       }
     }
-    // [HttpGet("{id}")]
-    // public ActionResult<Vault> Get(int id)
-    // {
-    //   try
-    //   {
-    //     return Ok(_repo.GetVaultsById(id));
-    //   }
-    //   catch (Exception e)
-    //   {
-    //     return BadRequest(e.Message);
-    //   }
-    // }
+    [HttpGet("{id}")]
+    public ActionResult<Vault> Get(int id)
+    {
+      try
+      {
+        return Ok(_repo.GetVaultById(id));
+      }
+      catch (Exception e)
+      {
+        return BadRequest(e.Message);
+      }
+    }
   }
 }

@@ -14,6 +14,8 @@ import createKeep from './Components/CreateKeepComponent.vue'
 import createVault from './Components/CreateVaultComponent.vue'
 // @ts-ignore
 import activeKeep from './views/ActiveKeep.vue'
+// @ts-ignore
+import activeVault from './views/ActiveVault.vue'
 
 Vue.use(Router)
 
@@ -50,9 +52,14 @@ export default new Router({
       component: createVault
     },
     {
-      path: '/:keepId',
+      path: '/keeps/:keepId',
       name: 'activeKeep',
       component: activeKeep
+    },
+    {
+      path: '/activeVault/:vaultId',
+      name: 'activeVault',
+      component: activeVault
     },
     {
       path: "*",

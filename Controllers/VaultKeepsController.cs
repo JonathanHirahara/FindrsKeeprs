@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Security.Claims;
 using FindrsKeeprs.Models;
 using FindrsKeeprs.Repositories;
@@ -33,24 +34,32 @@ namespace FindrsKeeprs.Controllers
       }
     }
     [HttpGet("{id}")]
-    public ActionResult<VaultKeep> get(int id)
+    public ActionResult<IEnumerable<Keep>> get(int id)
     {
       try
       {
+        //FIXME add the userId
+        //NOTE added userId to controller
+        string userId = HttpContext.User.FindFirstValue("Id");
 
-        return Ok(_repo.GetVaultKeeps(id));
+        return Ok(_repo.GetVaultKeeps(id, userId));
       }
       catch (Exception e)
       {
         return BadRequest(e.Message);
       }
     }
-    [Authorize]
+
     [HttpDelete("{id}")]
+
     public ActionResult<VaultKeepsController> Delete(VaultKeep vaultKeep)
     {
       try
       {
+        //FIXME Add the userId to vaultKeep dont trust the frontend
+        //NOTE added userId to controller
+        vaultKeep.UserId = HttpContext.User.FindFirstValue("Id");
+
         return Ok(_repo.DeleteVaultKeepById(vaultKeep));
       }
       catch (Exception e)

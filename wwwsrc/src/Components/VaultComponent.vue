@@ -8,6 +8,7 @@
           </div>
           <div>
             <p class="card-text">{{vault.description}}</p>
+            <button @click="goToVault(vault.id)">OPEN</button>
             <button @click="deleteVault(vault.id)">Delete Vault</button>
           </div>
         </div>
@@ -31,6 +32,10 @@
     methods: {
       deleteVault(id) {
         this.$store.dispatch('deleteVault', id)
+      },
+      goToVault(vault) {
+        // debugger
+        this.$router.push({ name: 'activeVault', params: { vaultId: vault } })
       }
     },
     components: {}

@@ -26,9 +26,11 @@ namespace FindrsKeeprs.Repositories
 
     }
 
-    public bool DeleteVaultById(int id)
+    public bool DeleteVaultById(int id, string userId)
     {
-      int success = _db.Execute("DELETE FROM vaults WHERE id = @Id", new { id });
+      //FIXME you need to pass the userId here
+      //NOTE added userId in controller
+      int success = _db.Execute("DELETE FROM vaults WHERE id = @Id AND userId = @userId", new { id, userId });
       return success > 0;
     }
 
@@ -37,9 +39,9 @@ namespace FindrsKeeprs.Repositories
       return _db.Query<Vault>("SELECT * FROM vaults WHERE userId= @UserId", new { userId });
     }
 
-    // public IEnumerable<Vault> GetVaultsById(int id)
-    // {
-    //   return _db.Query<Vault>("SELECT * FROM vaults WHERE id= @Id", new { id });
-    // }
+    public IEnumerable<Vault> GetVaultById(int id)
+    {
+      return _db.Query<Vault>("SELECT * FROM vaults WHERE id= @Id", new { id });
+    }
   }
 }
