@@ -44,6 +44,7 @@
       //NOTE getting vaults
       this.$store.dispatch('getVaultsByUserId')
       //FIXME when you hit this page increase the keep viewcount
+
       this.$store.dispatch('viewKeep', this.$route.params.keepId)
 
     },

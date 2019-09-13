@@ -95,19 +95,16 @@ namespace FindrsKeeprs.Controllers
     }
 
 
-    [HttpPut("{id}/share")]
-    public ActionResult<Keep> ViewKeep(int id)
+    [HttpPut("{id}/view")]
+    public ActionResult<Keep> ViewCount(int id, Keep keep)
     {
       try
       {
         //FIXME PASS IN THE USERID
         //Find the keep
-        //then increase the keep Shares
-        //then save the keep
-        string userId = HttpContext.User.FindFirstValue("Id");
+        keep.Views++;
+        return Ok(_repo.UpdateKeepViewsCount(id, keep.Views));
 
-        // _repo.UpdateKeepShares(id)
-        return Ok();
       }
       catch (Exception e)
       {

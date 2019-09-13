@@ -69,5 +69,12 @@ namespace FindrsKeeprs.Repositories
       int success = _db.Execute("DELETE FROM keeps WHERE id=@Id AND userId=@UserID", new { id, userId });
       return success > 0;
     }
+
+    public bool UpdateKeepViewsCount(int id, int views)
+    {
+      //FIXME mysql statement is wrong
+      int success = _db.Execute("UPDATE keeps SET views=@Views WHERE id=@Id", new { id, views });
+      return success > 0;
+    }
   }
 }

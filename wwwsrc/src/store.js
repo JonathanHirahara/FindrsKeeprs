@@ -32,15 +32,6 @@ export default new Vuex.Store({
       //clear the entire state object of user data
       state.user = {}
     },
-    setVaultKeepKeeps(state, data) {
-      state.vaultKeepKeeps = data
-    },
-    setActiveVault(state, data) {
-      state.activeVault = data
-    },
-    setVaults(state, data) {
-      state.vaults = data
-    },
     setKeeps(state, data) {
       state.keeps = data
     },
@@ -49,7 +40,16 @@ export default new Vuex.Store({
     },
     setActiveKeep(state, data) {
       state.activeKeep = data
-    }
+    },
+    setVaults(state, data) {
+      state.vaults = data
+    },
+    setActiveVault(state, data) {
+      state.activeVault = data
+    },
+    setVaultKeepKeeps(state, data) {
+      state.vaultKeepKeeps = data
+    },
   },
   actions: {
     //#region Auth stuff
@@ -129,6 +129,14 @@ export default new Vuex.Store({
     async viewKeep({ dispatch, commit }, keep) {
       try {
         // debugger
+
+        let res = await api.put('keeps/' + keep.id, keep)
+      }
+      catch (error) { console.log(error) }
+    },
+    async viewCounter({ dispatch, commit }, keep) {
+      try {
+        // debugger
         let res = await api.put('keeps/' + keep.id + '/view', keep)
       }
       catch (error) { console.log(error) }
@@ -159,12 +167,10 @@ export default new Vuex.Store({
       catch (error) { console.log(error) }
     },
 
-    // [HttpPost("{conId}/jobs/{jobId}")]
-    //     public ActionResult<string> AddContractorToJob(string conId, int jobId) {
-    //   return _cr.AddConToJob(conId, jobId)
+
     async addKeepToVault({ dispatch, commit }, payload) {
       try {
-        debugger
+        // debugger
         let res = await api.post('vaultKeeps', payload)
         // dispatch('getVaultKeeps')
       }
@@ -193,7 +199,11 @@ export default new Vuex.Store({
       }
       catch (error) { console.log(error) }
     },
+
+
   }
+  //#endregion 
+
 
 
 

@@ -1,7 +1,8 @@
 <template>
+
   <div class="row keeps">
     <div class="col-3" v-for="keep in keeps">
-      <div class="card mb-3">
+      <div class="card border-danger mb-3">
         <h3 class="card-header">{{keep.name}}</h3>
         <img style="height: 200px; width: 100%; display: block;" :src="keep.img" alt="Card image">
         <div class="card-body">
@@ -19,15 +20,15 @@
           </div>
         </div>
         <div class="card-body">
-          <button class="btn btn-warning" @click="viewKeep(keep)">View</button>
+          <button class="btn btn-warning" @click="viewKeep(keep);viewCount(keep)">View</button>
         </div>
         <div class="card-body">
           <button class="btn btn-warning" @click="shareKeep(keep)">SHARE</button>
         </div>
       </div>
     </div>
-
   </div>
+
 </template>
 
 <!-- NOTE V-FOR KEEP COMPONENT -->
@@ -49,10 +50,12 @@
       // }
     },
     methods: {
-      // incrementViews(id) {
-      //   this.keep.views++;
-      //   this.$store.dispatch('keepCounter', keep.views, keep.id)
-      // },
+
+      viewCount(keep) {
+        // debugger
+        // keep.views++;
+        this.$store.dispatch('viewCounter', keep)
+      },
       viewKeep(keep) {
         // debugger
         // this.$store.commit('setActiveKeep', keep)
