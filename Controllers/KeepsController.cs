@@ -111,6 +111,22 @@ namespace FindrsKeeprs.Controllers
         return BadRequest(e.Message);
       }
     }
+    [HttpPut("{id}/kept")]
+    public ActionResult<Keep> KeptCount(int id, Keep keep)
+    {
+      try
+      {
+        //FIXME PASS IN THE USERID
+        //Find the keep
+        keep.Keeps++;
+        return Ok(_repo.UpdateKeptKeepsCount(id, keep.Keeps));
+
+      }
+      catch (Exception e)
+      {
+        return BadRequest(e.Message);
+      }
+    }
 
 
   }

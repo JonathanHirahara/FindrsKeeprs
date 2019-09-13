@@ -21,7 +21,7 @@
           </div>
           <div>
             <p class="card-text">{{vault.description}}</p>
-            <button @click="setActiveVault(vault)">SELECT VAULT</button>
+            <button @click="setActiveVault(vault);keepKeep(activeKeep)">SELECT VAULT</button>
           </div>
         </div>
       </div>
@@ -65,16 +65,16 @@
     methods: {
       keepKeep(activeKeep) {
         // debugger
-        //FIXME send a vault as well as the keep to create a vaultkeep
-        this.$store.dispatch('addKeepToVault', activeKeep)
+        this.$store.dispatch('keepsCounter', activeKeep)
       },
       setActiveVault(vault) {
         let keepToVault = {
           keepId: this.activeKeep.id,
           vaultId: vault.id
         }
-        debugger
+        // debugger
         this.$store.dispatch('addKeepToVault', keepToVault)
+        this.$router.push({ name: 'home' })
       }
     },
     components: {}

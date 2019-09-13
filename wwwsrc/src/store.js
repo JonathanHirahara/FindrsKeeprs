@@ -141,6 +141,13 @@ export default new Vuex.Store({
       }
       catch (error) { console.log(error) }
     },
+    async keepsCounter({ dispatch, commit }, keep) {
+      try {
+        // debugger
+        let res = await api.put('keeps/' + keep.id + '/kept', keep)
+      }
+      catch (error) { console.log(error) }
+    },
     //#endregion
 
     //#region Vaults stuff
